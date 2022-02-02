@@ -1,2 +1,2 @@
-# TicTacTowKata
+# TicTacToeKata
 A kata illustrating TicTacToe
