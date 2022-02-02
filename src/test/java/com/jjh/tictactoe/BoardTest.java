@@ -83,6 +83,14 @@ class BoardTest {
   }
 
   @Test
+  void addXFollowedByYCountersInARow() {
+    board.addCounter(Board.X, 0,0);
+    board.addCounter(Board.Y, 0,1);
+    boolean result = board.isCellEmpty(0, 1);
+    assertThat("with a Y counter in cell 0,1 the cell should not be empty", result, equalTo(false));
+  }
+
+  @Test
   void addTwoXCountersInARow() {
     board.addCounter(Board.X, 0,0);
     assertThrows(OutOfSequenceException.class, () -> {board.addCounter(Board.X, 0,1);});
