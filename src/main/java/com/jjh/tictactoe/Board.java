@@ -11,4 +11,7 @@ public class Board {
     return true;
   }
 
+  public boolean isCellEmpty(int row, int col) {
+    return true;
+  }
 }

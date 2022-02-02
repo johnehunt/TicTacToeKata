@@ -23,7 +23,13 @@ class BoardTest {
 
   @Test
   void isBoardEmpty() {
-    boolean result = board.isEmpty();;
+    boolean result = board.isEmpty();
+    assertThat("the board should be empty", result, equalTo(true));
+  }
+
+  @Test
+  void isCellEmpty() {
+    boolean result = board.isCellEmpty(0,0);
     assertThat("the board should be empty", result, equalTo(true));
   }
 }
