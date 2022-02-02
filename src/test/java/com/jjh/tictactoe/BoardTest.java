@@ -97,9 +97,27 @@ class BoardTest {
   }
 
   @Test
+  void testForNotAFullBoard() {
+    boolean result = board.isFull();
+    assertThat("a full board should return true", result, equalTo(false));
+  }
+
+  @Test
   void testForAFullBoard() {
     board.addCounter(Board.X, 0,0);
-    assertThrows(OutOfSequenceException.class, () -> {board.addCounter(Board.X, 0,1);});
+    board.addCounter(Board.Y, 0,1);
+    board.addCounter(Board.X, 0,2);
+
+    board.addCounter(Board.Y, 1,0);
+    board.addCounter(Board.X, 1,1);
+    board.addCounter(Board.Y, 1,2);
+
+    board.addCounter(Board.X, 2,0);
+    board.addCounter(Board.Y, 2,1);
+    board.addCounter(Board.X, 2,2);
+
+    boolean result = board.isFull();
+    assertThat("a full board should return true", result, equalTo(true));
   }
 
 }

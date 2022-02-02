@@ -35,4 +35,15 @@ public class Board {
     lastPlayer = counter;
     cells[row][col] = counter;
   }
+
+  public boolean isFull() {
+    for (String[] row : cells) {
+      for (String counter : row) {
+        if (counter == null) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
 }
