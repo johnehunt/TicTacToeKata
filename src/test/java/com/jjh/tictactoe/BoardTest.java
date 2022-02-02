@@ -96,4 +96,10 @@ class BoardTest {
     assertThrows(OutOfSequenceException.class, () -> {board.addCounter(Board.X, 0,1);});
   }
 
+  @Test
+  void testForAFullBoard() {
+    board.addCounter(Board.X, 0,0);
+    assertThrows(OutOfSequenceException.class, () -> {board.addCounter(Board.X, 0,1);});
+  }
+
 }
