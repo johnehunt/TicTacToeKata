@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class BoardTest {
 
@@ -63,6 +64,22 @@ class BoardTest {
     board.addCounter(Board.Y, row, col);
     boolean result = board.isCellEmpty(row, col);
     assertThat("with a Y counter in cell 0,0 the cell should not be empty", result, equalTo(false));
+  }
+
+  @Test
+  void addSameCounterTwiceToSameCell() {
+    int row = 0;
+    int col = 0;
+    board.addCounter(Board.X, row, col);
+    assertThrows(CellNotAvailableException.class, () -> {board.addCounter(Board.X, row, col);});
+  }
+
+  @Test
+  void addDifferentCounterToSameCell() {
+    int row = 0;
+    int col = 0;
+    board.addCounter(Board.X, row, col);
+    assertThrows(CellNotAvailableException.class, () -> {board.addCounter(Board.Y, row, col);});
   }
 
 }
