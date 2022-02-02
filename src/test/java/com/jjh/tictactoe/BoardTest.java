@@ -32,4 +32,21 @@ class BoardTest {
     boolean result = board.isCellEmpty(0,0);
     assertThat("the board should be empty", result, equalTo(true));
   }
+
+  @Test
+  void addXCounterAtZeroByZero() {
+    board.addCounter(Board.X, 0, 0);
+    boolean result = board.isEmpty();
+    assertThat("with a counter in cell 0,0 the board should not be empty", result, equalTo(false));
+  }
+
+  @Test
+  void addXCounterAtZeroByZeroCheckCell() {
+    int row = 0;
+    int col = 0;
+    board.addCounter(Board.X, row, col);
+    boolean result = board.isCellEmpty(row, col);
+    assertThat("with a counter in cell 0,0 the cell should not be empty", result, equalTo(false));
+  }
+
 }
