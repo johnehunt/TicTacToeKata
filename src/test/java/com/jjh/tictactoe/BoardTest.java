@@ -82,4 +82,10 @@ class BoardTest {
     assertThrows(CellNotAvailableException.class, () -> {board.addCounter(Board.Y, row, col);});
   }
 
+  @Test
+  void addTwoXCountersInARow() {
+    board.addCounter(Board.X, 0,0);
+    assertThrows(OutOfSequenceException.class, () -> {board.addCounter(Board.X, 0,1);});
+  }
+
 }
