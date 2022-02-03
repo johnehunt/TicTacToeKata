@@ -67,12 +67,11 @@ class BoardTest {
   }
 
   @Test
-  void addSameCounterTwiceToSameCell() {
-    int row = 0;
-    int col = 0;
-    board.addCounter(Board.X, row, col);
-    board.addCounter(Board.O, row+1, col+1);
-    assertThrows(CellNotAvailableException.class, () -> board.addCounter(Board.X, row, col));
+  void addXFollowedByOCountersInARow() {
+    board.addCounter(Board.X, 0,0);
+    board.addCounter(Board.O, 0,1);
+    boolean result = board.isCellEmpty(0, 1);
+    assertThat("with a O counter in cell 0,1 the cell should not be empty", result, equalTo(false));
   }
 
 }
