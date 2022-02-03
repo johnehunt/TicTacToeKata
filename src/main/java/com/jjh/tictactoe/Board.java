@@ -3,7 +3,7 @@ package com.jjh.tictactoe;
 public class Board {
 
   public static final String X = "X";
-  public static final String Y = "O";
+  public static final String O = "O";
 
   private final String[][] cells = new String[3][3];
 
@@ -24,9 +24,6 @@ public class Board {
   }
 
   public void addCounter(String counter, int row, int col) {
-    if (!isCellEmpty(row, col)) {
-      throw new CellNotAvailableException(("Cell(%d,%d) - already filled".formatted(row, col)));
-    }
     cells[row][col] = counter;
   }
 }
