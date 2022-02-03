@@ -3,7 +3,7 @@ package com.jjh.tictactoe;
 public class Board {
 
   public static final String X = "X";
-  public static final String Y = "O";
+  public static final String O = "O";
 
   private final String[][] cells = new String[3][3];
 
@@ -45,5 +45,16 @@ public class Board {
       }
     }
     return true;
+  }
+
+  public void printBoard() {
+    for (String[] cell : cells) {
+      System.out.println("-------");
+      for (String s : cell) {
+        System.out.printf("|%s", s);
+      }
+      System.out.println(("|"));
+    }
+    System.out.println("-------");
   }
 }
