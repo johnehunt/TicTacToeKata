@@ -72,7 +72,7 @@ class BoardTest {
     int col = 0;
     board.addCounter(Board.X, row, col);
     board.addCounter(Board.O, row+1, col+1);
-    assertThrows(CellNotAvailableException.class, () -> {board.addCounter(Board.X, row, col);});
+    assertThrows(CellNotAvailableException.class, () -> board.addCounter(Board.X, row, col));
   }
 
   @Test
@@ -80,7 +80,7 @@ class BoardTest {
     int row = 0;
     int col = 0;
     board.addCounter(Board.X, row, col);
-    assertThrows(CellNotAvailableException.class, () -> {board.addCounter(Board.O, row, col);});
+    assertThrows(CellNotAvailableException.class, () -> board.addCounter(Board.O, row, col));
   }
 
   @Test
@@ -94,7 +94,7 @@ class BoardTest {
   @Test
   void addTwoXCountersInARow() {
     board.addCounter(Board.X, 0,0);
-    assertThrows(OutOfSequenceException.class, () -> {board.addCounter(Board.X, 0,1);});
+    assertThrows(OutOfSequenceException.class, () -> board.addCounter(Board.X, 0,1));
   }
 
   @Test

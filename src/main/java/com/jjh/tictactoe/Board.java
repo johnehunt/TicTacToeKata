@@ -77,10 +77,10 @@ public class Board {
    * Method useful for debugging and user interaction
    */
   public void printBoard() {
-    for (int i=0; i< cells.length; i++) {
+    for (String[] cell : cells) {
       System.out.println("-------");
-      for (int j=0; j<cells[i].length; j++) {
-        System.out.print("|%s".formatted(cells[i][j]));
+      for (String s : cell) {
+        System.out.printf("|%s", s);
       }
       System.out.println(("|"));
     }
