@@ -42,10 +42,10 @@ class BoardTest {
   }
 
   @Test
-  void addYCounterAtZeroByZero() {
-    board.addCounter(Board.Y, 0, 0);
+  void addOCounterAtZeroByZero() {
+    board.addCounter(Board.O, 0, 0);
     boolean result = board.isEmpty();
-    assertThat("with a Y counter in cell 0,0 the board should not be empty", result, equalTo(false));
+    assertThat("with a O counter in cell 0,0 the board should not be empty", result, equalTo(false));
   }
 
   @Test
@@ -58,12 +58,12 @@ class BoardTest {
   }
 
   @Test
-  void addYCounterAtZeroByZeroCheckCell() {
+  void addOCounterAtZeroByZeroCheckCell() {
     int row = 0;
     int col = 0;
-    board.addCounter(Board.Y, row, col);
+    board.addCounter(Board.O, row, col);
     boolean result = board.isCellEmpty(row, col);
-    assertThat("with a Y counter in cell 0,0 the cell should not be empty", result, equalTo(false));
+    assertThat("with a O counter in cell 0,0 the cell should not be empty", result, equalTo(false));
   }
 
   @Test
@@ -71,21 +71,22 @@ class BoardTest {
     int row = 0;
     int col = 0;
     board.addCounter(Board.X, row, col);
-    assertThrows(CellNotAvailableException.class, () -> {board.addCounter(Board.X, row, col);});
+    board.addCounter(Board.O, row+1, col+1);
+    assertThrows(CellNotAvailableException.class, () -> board.addCounter(Board.X, row, col));
   }
 
   @Test
-  void addDifferentCounterToSameCell() {
-    int row = 0;
-    int col = 0;
-    board.addCounter(Board.X, row, col);
-    assertThrows(CellNotAvailableException.class, () -> {board.addCounter(Board.Y, row, col);});
+  void addXFollowedByOCountersInARow() {
+    board.addCounter(Board.X, 0,0);
+    board.addCounter(Board.O, 0,1);
+    boolean result = board.isCellEmpty(0, 1);
+    assertThat("with a O counter in cell 0,1 the cell should not be empty", result, equalTo(false));
   }
 
   @Test
   void addTwoXCountersInARow() {
     board.addCounter(Board.X, 0,0);
-    assertThrows(OutOfSequenceException.class, () -> {board.addCounter(Board.X, 0,1);});
+    assertThrows(OutOfSequenceException.class, () -> board.addCounter(Board.X, 0,1));
   }
 
 }
