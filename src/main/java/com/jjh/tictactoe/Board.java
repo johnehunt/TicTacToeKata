@@ -18,15 +18,7 @@ public class Board {
     return true;
   }
 
-  public boolean isCellEmpty(int row, int col) {
-    String counter = cells[row][col];
-    return counter == null;
-  }
-
   public void addCounter(String counter, int row, int col) {
-    if (!isCellEmpty(row, col)) {
-      throw new CellNotAvailableException(("Cell(%d,%d) - already filled".formatted(row, col)));
-    }
     cells[row][col] = counter;
   }
 }
