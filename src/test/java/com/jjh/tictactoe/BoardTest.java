@@ -42,10 +42,10 @@ class BoardTest {
   }
 
   @Test
-  void addYCounterAtZeroByZero() {
-    board.addCounter(Board.Y, 0, 0);
+  void addOCounterAtZeroByZero() {
+    board.addCounter(Board.O, 0, 0);
     boolean result = board.isEmpty();
-    assertThat("with a Y counter in cell 0,0 the board should not be empty", result, equalTo(false));
+    assertThat("with a O counter in cell 0,0 the board should not be empty", result, equalTo(false));
   }
 
   @Test
@@ -58,12 +58,12 @@ class BoardTest {
   }
 
   @Test
-  void addYCounterAtZeroByZeroCheckCell() {
+  void addOCounterAtZeroByZeroCheckCell() {
     int row = 0;
     int col = 0;
-    board.addCounter(Board.Y, row, col);
+    board.addCounter(Board.O, row, col);
     boolean result = board.isCellEmpty(row, col);
-    assertThat("with a Y counter in cell 0,0 the cell should not be empty", result, equalTo(false));
+    assertThat("with a O counter in cell 0,0 the cell should not be empty", result, equalTo(false));
   }
 
   @Test
@@ -71,6 +71,7 @@ class BoardTest {
     int row = 0;
     int col = 0;
     board.addCounter(Board.X, row, col);
+    board.addCounter(Board.O, row+1, col+1);
     assertThrows(CellNotAvailableException.class, () -> {board.addCounter(Board.X, row, col);});
   }
 
@@ -79,15 +80,15 @@ class BoardTest {
     int row = 0;
     int col = 0;
     board.addCounter(Board.X, row, col);
-    assertThrows(CellNotAvailableException.class, () -> {board.addCounter(Board.Y, row, col);});
+    assertThrows(CellNotAvailableException.class, () -> {board.addCounter(Board.O, row, col);});
   }
 
   @Test
-  void addXFollowedByYCountersInARow() {
+  void addXFollowedByOCountersInARow() {
     board.addCounter(Board.X, 0,0);
-    board.addCounter(Board.Y, 0,1);
+    board.addCounter(Board.O, 0,1);
     boolean result = board.isCellEmpty(0, 1);
-    assertThat("with a Y counter in cell 0,1 the cell should not be empty", result, equalTo(false));
+    assertThat("with a O counter in cell 0,1 the cell should not be empty", result, equalTo(false));
   }
 
   @Test
@@ -105,19 +106,119 @@ class BoardTest {
   @Test
   void testForAFullBoard() {
     board.addCounter(Board.X, 0,0);
-    board.addCounter(Board.Y, 0,1);
+    board.addCounter(Board.O, 0,1);
     board.addCounter(Board.X, 0,2);
 
-    board.addCounter(Board.Y, 1,0);
+    board.addCounter(Board.O, 1,0);
     board.addCounter(Board.X, 1,1);
-    board.addCounter(Board.Y, 1,2);
+    board.addCounter(Board.O, 1,2);
 
     board.addCounter(Board.X, 2,0);
-    board.addCounter(Board.Y, 2,1);
+    board.addCounter(Board.O, 2,1);
     board.addCounter(Board.X, 2,2);
 
     boolean result = board.isFull();
     assertThat("a full board should return true", result, equalTo(true));
+  }
+
+  @Test
+  void testForAXHorizontalWin() {
+    board.addCounter(Board.X, 0,0);
+    board.addCounter(Board.O, 1,2);
+    board.addCounter(Board.X, 0,1);
+
+    board.addCounter(Board.O, 2,0);
+    board.addCounter(Board.X, 0,2);
+
+    boolean result = board.isWin(Board.X);
+    assertThat("a horizontal win for X should return true", result, equalTo(true));
+  }
+
+  @Test
+  void testForNotOHorizontalWin() {
+    board.addCounter(Board.X, 0,0);
+    board.addCounter(Board.O, 1,2);
+    board.addCounter(Board.X, 0,1);
+
+    board.addCounter(Board.O, 2,0);
+    board.addCounter(Board.X, 0,2);
+
+    boolean result = board.isWin(Board.O);
+    assertThat("a horizontal win for X should return false for O", result, equalTo(false));
+  }
+
+  @Test
+  void testForAXVerticalWin() {
+    board.addCounter(Board.X, 0,0);
+    board.addCounter(Board.O, 0,1);
+    board.addCounter(Board.X, 1,0);
+
+    board.addCounter(Board.O, 0,2);
+    board.addCounter(Board.X, 1,1);
+    board.addCounter(Board.O, 2,2);
+
+    board.addCounter(Board.X, 2,0);
+
+    boolean result = board.isWin(Board.X);
+    assertThat("a vertical win for X should return true", result, equalTo(true));
+  }
+
+  @Test
+  void testForNotOVerticalWin() {
+    board.addCounter(Board.X, 0,0);
+    board.addCounter(Board.O, 0,1);
+    board.addCounter(Board.X, 1,0);
+
+    board.addCounter(Board.O, 0,2);
+    board.addCounter(Board.X, 1,1);
+    board.addCounter(Board.O, 2,2);
+
+    board.addCounter(Board.X, 2,0);
+
+    boolean result = board.isWin(Board.O);
+    assertThat("a vertical win for X should return false for O", result, equalTo(false));
+  }
+
+  @Test
+  void testForAXDiagonalWin() {
+    board.addCounter(Board.X, 0,0);
+    board.addCounter(Board.O, 0,1);
+    board.addCounter(Board.X, 1,1);
+    board.addCounter(Board.O, 0,2);
+    board.addCounter(Board.X, 2,2);
+
+    boolean result = board.isWin(Board.X);
+    assertThat("a diagonal win for X should return true", result, equalTo(true));
+  }
+
+  @Test
+  void testForAONotDiagonalWin() {
+    board.addCounter(Board.X, 0,0);
+    board.addCounter(Board.O, 0,1);
+    board.addCounter(Board.X, 1,1);
+    board.addCounter(Board.O, 0,2);
+    board.addCounter(Board.X, 2,2);
+
+    boolean result = board.isWin(Board.O);
+    assertThat("a diagonal win for X should return false for O", result, equalTo(false));
+  }
+
+  @Test
+  void testForAFullBoardNoWin() {
+    board.addCounter(Board.X, 0,0);
+    board.addCounter(Board.O, 0,2);
+    board.addCounter(Board.X, 0,1);
+
+    board.addCounter(Board.O, 1,0);
+    board.addCounter(Board.X, 1,2);
+    board.addCounter(Board.O, 1,1);
+
+    board.addCounter(Board.X, 2,0);
+    board.addCounter(Board.O, 2,2);
+    board.addCounter(Board.X, 2,1);
+
+    boolean result = board.isWin(Board.X);
+    assertThat("a full board draw should return false", result, equalTo(false));
   }
 
 }
