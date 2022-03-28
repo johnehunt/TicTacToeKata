@@ -18,19 +18,19 @@ Step 4 - Check for adding the same counter twice in sequence
 
 Adds multiple additions to board X, O and X
 
-Step 5 Check can;t add a counter to a filled cell
+Step 5 Check can't add a counter to a filled cell
 
 Adds CellNotAvailableException
-Adds check for empty cell in Add~Counter
+Adds check for empty cell in addCounter
 
 Step 6 - Check for ordering of counters
-Can;t add to X counters after each other
+Can't add two counters of the same type (e.g. two X counters) one after another
 
-Adds OutOfSequenceException
-Board keeps a record of the last player to make a move
-Checks player when adding a counter
+ * Adds OutOfSequenceException
+ * Board keeps a record of the last player to make a move
+ * Checks player when adding a counter
 
-Step 7 - Checks can't add different counters to same cell
+Step 7 - Checks can't add different counters to the same cell
 
 Step 8 - Check for a full board or not
 
