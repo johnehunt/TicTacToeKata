@@ -12,7 +12,8 @@ Updates functionality of isEmpty
 
 Step 3 - Confirm counter places in correct cell
 
-Adds whether a cell is empty or not
+Does this by adding a counter to a specific cell and then checking to see if that cell is empty or not.
+Adds whether a cell is empty or not.
 
 Step 4 - Check for adding the same counter twice in sequence
 
